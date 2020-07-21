@@ -1,0 +1,7 @@
+{% block content %}
+<div class="form">
+    <form action="{{ url_for('artist_choice') }}" method="POST">
+        {{ form.hidden_tag() }}
+    </form>
+</div>
+{% endblock %}

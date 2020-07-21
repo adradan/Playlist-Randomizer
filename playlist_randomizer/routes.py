@@ -1,12 +1,14 @@
 from playlist_randomizer import app, sp
 from playlist_randomizer import forms
+from flask import render_template
 
 
 @app.route('/')
 def home():
-    results = sp.current_user_saved_tracks()
-    for idx, item in enumerate(results['items']):
-        track = item['track']
-        print(idx, track['artists'][0]['name'], " – ", track['name'])
     form = forms.Artists()
-    return 'Hello, world!'
+    return render_template('base.html', form=form)
+
+@app.route('/choose')
+def artist_choice():
+    form = forms.ChooseArtists()
+    

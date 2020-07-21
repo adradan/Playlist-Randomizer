@@ -3,5 +3,18 @@ from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import InputRequired, ValidationError
 
 
-class Artists(FlaskForm):
-    language = SelectField(u'Programming Language', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
+class NumArtists(FlaskForm):
+    num = []
+    choices = []
+    for i in range(1, 11):
+        num.append(i)
+        num.append(i)
+        num = tuple(num)
+        choices.append(num)
+        num = []
+    artist_num = SelectField(u'Number of Artists', choices=choices, validators=[InputRequired()])
+    submit = SubmitField(label='Next')
+
+
+class ChooseArtists(FlaskForm):
+    pass
