@@ -8,4 +8,4 @@ data = {'Artist': ['Daniel Caesar', 'Billie Eilish'],
 df = pd.DataFrame(data)
 print(df)
 df.loc['Daniel Caesar', 'Anotha'] = 'AHA'
-print(df)
+print(df.loc[0, 'Artist'])
