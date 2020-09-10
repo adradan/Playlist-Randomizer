@@ -1,8 +1,10 @@
 from playlist_randomizer.songs import Songs
-import json
 
 
 class Playlist:
+    """
+    Creates a Playlist named after the username and adds selected songs to it
+    """
     def __init__(self):
         self.playlist = None
         self.song = Songs()
@@ -10,12 +12,10 @@ class Playlist:
         self.sp = self.song.sp
         self.user = self.sp.current_user()
         self.songs = []
-        # self.user_name = self.user['display_name']
-        # self.user_id = self.user['id']
-        print(self.df)
         self.create_playlist()
 
     def create_playlist(self):
+        """ Creates the Playlist """
         user_name = self.user['display_name']
         user_id = self.user['id']
         playlist_name = f'This is {user_name}'
@@ -27,19 +27,20 @@ class Playlist:
         self.grab_ids()
         self.playlist = self.sp.user_playlist_create(**context)
         self.add_songs(user_id)
+        print(f'\'This is {user_name}\' has been successfully created.')
 
     def grab_ids(self):
+        """ Grabs the song IDs from DF """
         for i in range(0, 10):
             song_num = f'Song_{i}'
             song_ids = self.df[song_num].values
             for s_id in song_ids:
                 self.songs.append(s_id)
-        print(self.songs)
 
     def add_songs(self, user_id):
+        """ Adds songs to created playlist """
         pl_id = self.playlist['id']
         self.sp.user_playlist_add_tracks(user_id, pl_id, self.songs)
-
 
 
 Playlist()

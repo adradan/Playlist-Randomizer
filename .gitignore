@@ -1,6 +1,9 @@
 .flaskenv
 cache
 .idea
+cacheasdf
+test/test3.py
+testfile
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
