@@ -5,6 +5,7 @@ import playlist_randomizer.exceptions as ex
 import pprint
 import pandas as pd
 from playlist_randomizer.artist_ids import ArtistId
+import numpy as np
 import pprint
 import json
 import time
@@ -35,6 +36,9 @@ class Songs:
         """ Adds the playlist id to the corresponding row of the artist """
         self.df.loc[index, column_name] = spotify_id
 
+    def playlist_songs(self, playlist_id):
+        pass
+
     def grab_index(self, artist_name):
         """ Grabs row index of the artist """
         for index in self.df.index:
@@ -64,6 +68,20 @@ class Songs:
             index = [index, 1]
             return index
 
+    def song_choices(self, items):
+        num_list = []
+        for num, song in enumerate(items):
+            num_list.append(num)
+        choices = np.random.choice(num_list, size=10, replace=False)
+        return choices
+
+    def add_songs(self, choices, playlist, artist_index):
+        items = playlist['items']
+        for pos, num in enumerate(choices):
+            song_id = items[num]['track']['id']
+            column = f'Song_{pos}'
+            self.add_id(artist_index, song_id, column)
+
     def this_is_search(self, artist_name):
         """ Searches for each artist's respective 'This is ...' playlist. """
         # Builds a query using Spotify guidelines.
@@ -77,6 +95,11 @@ class Songs:
         # If a playlist is found, it will add the playlist ID to the Dataframe.'
         if type(this_is_index) is int:
             self.add_id(this_is_index, search['id'], 'Playlist')
+            pl = self.sp.playlist_tracks(search['id'])
+            # with open('testfile', 'w+') as f:
+            #     json.dump(pl, f)
+            choices = self.song_choices(pl['items'])
+            self.add_songs(choices, pl, this_is_index)
         elif type(this_is_index) is list:
             this_is_index = this_is_index[0]
             self.top_ten(this_is_index)
