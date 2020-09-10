@@ -1,7 +1,14 @@
 import playlist_randomizer.exceptions as ex
-from playlist_randomizer import authenticate
 import pandas as pd
+from playlist_randomizer import authenticate
 
+
+
+def format_artist(artist):
+    """ Formats given artist for use with queries """
+    artist = artist.lower().strip()
+    artist.replace(' ', '+')
+    return artist
 
 class ArtistId:
     """
@@ -18,12 +25,6 @@ class ArtistId:
     def create_table(self):
         """ Creates a DataFrame """
         self.df = pd.DataFrame(self.data)
-
-    def format_artist(self, artist):
-        """ Formats given artist for use with queries """
-        artist = artist.lower().strip()
-        artist.replace(' ', '+')
-        return artist
 
     def search_id(self, artist):
         """
@@ -52,7 +53,7 @@ class ArtistId:
             while True:
                 artist = input(f'Artist #{num}: ')
                 try:
-                    formatted = self.format_artist(artist)
+                    formatted = format_artist(artist)
                     search_result = self.search_id(formatted)
                     if search_result[0] == 'no match':
                         raise ex.NoDirectMatch(search_result[1])

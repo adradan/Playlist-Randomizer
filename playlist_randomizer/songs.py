@@ -1,5 +1,5 @@
-from playlist_randomizer.artist_ids import ArtistId
 import numpy as np
+from playlist_randomizer.artist_ids import ArtistId
 
 
 class Songs:
@@ -26,8 +26,6 @@ class Songs:
         """ Adds a column to the corresponding row """
         self.df.loc[index, column_name] = spotify_id
 
-    def playlist_songs(self, playlist_id):
-        pass
 
     def grab_index(self, artist_name):
         """ Grabs row index of the artist """
