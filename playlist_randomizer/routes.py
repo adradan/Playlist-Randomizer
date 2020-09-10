@@ -8,7 +8,7 @@ def home():
     form = forms.Artists()
     return render_template('base.html', form=form)
 
+
 @app.route('/choose')
 def artist_choice():
     form = forms.ChooseArtists()
-    

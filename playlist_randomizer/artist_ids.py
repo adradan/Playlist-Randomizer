@@ -3,12 +3,12 @@ import pandas as pd
 from playlist_randomizer import authenticate
 
 
-
 def format_artist(artist):
     """ Formats given artist for use with queries """
     artist = artist.lower().strip()
     artist.replace(' ', '+')
     return artist
+
 
 class ArtistId:
     """
